@@ -10,6 +10,10 @@ public class KitchenObjectHolder : MonoBehaviour
     {
         return kitchenObject;
     }
+    public bool IsHaveKitchenObject()
+    {
+        return kitchenObject != null;
+    }
     public void SetKitchenObject(KitchenObject kitchenObject)
     {
         this.kitchenObject = kitchenObject;
@@ -19,23 +23,23 @@ public class KitchenObjectHolder : MonoBehaviour
     {
         return holdPoint;
     }
-    public void TransferKitchenObject(ClearCounter sourceCounter, ClearCounter targetCounter)
+    public void TransferKitchenObject(KitchenObjectHolder sourceHolder, KitchenObjectHolder targetHolder)
     {
-        if (sourceCounter.kitchenObject != null)
+        if (sourceHolder.kitchenObject != null)
         {
-            if (targetCounter.GetKitchenObject() == null)
+            if (targetHolder.GetKitchenObject() == null)
             {
-                targetCounter.AddKitchenObject(sourceCounter.GetKitchenObject());
-                sourceCounter.ClearKitchenObject();
+                targetHolder.AddKitchenObject(sourceHolder.GetKitchenObject());
+                sourceHolder.ClearKitchenObject();
             }
             else
             {
-                Debug.LogWarning("目标位置已经有物品了");
+                Debug.LogWarning("目标持有者已经有物品了");
             }
         }
         else
         {
-            Debug.LogWarning("源位置没有物品");
+            Debug.LogWarning("源持有者没有物品");
         }
     }
     public void ClearKitchenObject()

@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class Player : KitchenObjectHolder
 {
+    public static Player Instance { get; private set; }
+
     [SerializeField] private float moveSpeed = 5;
     [SerializeField] private float rotateSpeed = 20;
     [SerializeField] private GameInput gameInput;
     [SerializeField] private LayerMask counterLayerMask;
     private bool isWalking = false;
-    private ClearCounter selectedCounter;
+    private BaseCounter selectedCounter;
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Start()
     {
         gameInput.OnInteractAction += GameInput_OnInteractAction;
@@ -29,7 +35,7 @@ public class Player : KitchenObjectHolder
     }
     private void GameInput_OnInteractAction(object sender, System.EventArgs e)
     {
-        selectedCounter?.Interact();
+        selectedCounter?.Interact(this);
     }
     private void HandleMovement()
     {
@@ -49,7 +55,7 @@ public class Player : KitchenObjectHolder
         bool isCollide = Physics.Raycast(transform.position, transform.forward, out hitinfo, 2, counterLayerMask);
         if (isCollide)
         {
-            if (hitinfo.collider.TryGetComponent<ClearCounter>(out ClearCounter counter))
+            if (hitinfo.collider.TryGetComponent<BaseCounter>(out BaseCounter counter))
             {
                 // counter.Interact();
                 SetSelectedCounter(counter);
@@ -64,7 +70,7 @@ public class Player : KitchenObjectHolder
             SetSelectedCounter(null);
         }
     }
-    public void SetSelectedCounter(ClearCounter counter)//设置选中的counter
+    public void SetSelectedCounter(BaseCounter counter)//设置选中的counter
     {
         if (counter != selectedCounter)
         {
