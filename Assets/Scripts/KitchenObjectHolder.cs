@@ -52,4 +52,14 @@ public class KitchenObjectHolder : MonoBehaviour
         kitchenObject.transform.localPosition = Vector3.zero;
         this.kitchenObject = kitchenObject;
     }
+    public void DestroyKitchenObject()
+    {
+            Destroy(kitchenObject.gameObject);
+            ClearKitchenObject();
+    }
+    public void CreateKitchenObject(GameObject kitchenObjectPrefab)
+    {
+        KitchenObject kitchenObject = GameObject.Instantiate(kitchenObjectPrefab, GetHoldPoint()).GetComponent<KitchenObject>();
+        SetKitchenObject(kitchenObject);
+    }
 }

@@ -305,7 +305,7 @@ PrefabInstance:
     - target: {fileID: 5868729671963829420, guid: 039769272cd16ed498d292705c4b9fe9,
         type: 3}
       propertyPath: m_Name
-      value: ContainerCounter_Bread
+      value: ContainerCounter
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

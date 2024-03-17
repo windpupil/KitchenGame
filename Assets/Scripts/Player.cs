@@ -19,6 +19,7 @@ public class Player : KitchenObjectHolder
     private void Start()
     {
         gameInput.OnInteractAction += GameInput_OnInteractAction;
+        gameInput.OnOperateAction += GameInput_OnOperateAction;
     }
 
     private void Update()
@@ -36,6 +37,10 @@ public class Player : KitchenObjectHolder
     private void GameInput_OnInteractAction(object sender, System.EventArgs e)
     {
         selectedCounter?.Interact(this);
+    }
+    private void GameInput_OnOperateAction(object sender, System.EventArgs e)
+    {
+        selectedCounter?.InteractOperate(this);
     }
     private void HandleMovement()
     {

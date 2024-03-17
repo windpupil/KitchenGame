@@ -18,6 +18,10 @@ public class BaseCounter : KitchenObjectHolder
         // }
         Debug.LogWarning("交互方法未重写");
     }
+    public virtual void InteractOperate(Player player)
+    {
+        // Debug.LogWarning("操作方法未重写");
+    }
     public void SelectCounter()
     {
         SelectedCounter.SetActive(true);
@@ -26,4 +30,5 @@ public class BaseCounter : KitchenObjectHolder
     {
         SelectedCounter.SetActive(false);
     }
+
 }

@@ -4,7 +4,12 @@ using UnityEngine;
 //仓库类柜台
 public class ContainerCounter : BaseCounter
 {
+    [SerializeField] private ContainerCounterVisual containerCounterVisual;
     [SerializeField] private KitchenObjectSO kitchenObjectSO;
+    // private void Start()
+    // {
+    //     containerCounterVisual = GetComponentInChildren<ContainerCounterVisual>();
+    // }
 
     public override void Interact(Player player)
     {
@@ -12,11 +17,7 @@ public class ContainerCounter : BaseCounter
             return;
         CreateKitchenObject(kitchenObjectSO.prefab);
         TransferKitchenObject(this, player);
+        containerCounterVisual.PlayOpen();
 
-    }
-    public void CreateKitchenObject(GameObject kitchenObjectPrefab)
-    {
-        KitchenObject kitchenObject = GameObject.Instantiate(kitchenObjectSO.prefab, GetHoldPoint()).GetComponent<KitchenObject>();
-        SetKitchenObject(kitchenObject);
     }
 }
