@@ -10,6 +10,10 @@ public class KitchenObjectHolder : MonoBehaviour
     {
         return kitchenObject;
     }
+    public KitchenObjectSO GetKitchenObjectSO()
+    {
+        return kitchenObject.GetKitchenObjectSO();
+    }
     public bool IsHaveKitchenObject()
     {
         return kitchenObject != null;
@@ -54,8 +58,8 @@ public class KitchenObjectHolder : MonoBehaviour
     }
     public void DestroyKitchenObject()
     {
-            Destroy(kitchenObject.gameObject);
-            ClearKitchenObject();
+        Destroy(kitchenObject.gameObject);
+        ClearKitchenObject();
     }
     public void CreateKitchenObject(GameObject kitchenObjectPrefab)
     {

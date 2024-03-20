@@ -8,15 +8,41 @@ public class ClearCounter : BaseCounter
     {
         if (player.IsHaveKitchenObject())
         {
-            //手上有食材
-            if (IsHaveKitchenObject() == false)
-            {
-                //柜台上无食材
-                TransferKitchenObject(player, this);
+            //手上有kitchenObject
+            if (player.GetKitchenObject().TryGetComponent<PlateKitchenObject>(out PlateKitchenObject plateKitchenObject))
+            {//手上有盘子
+                if (IsHaveKitchenObject() == false)
+                {
+                    //柜台上无食材
+                    TransferKitchenObject(player, this);
+                }
+                else
+                {
+                    //柜台上有食材
+                    bool isSuccessed = plateKitchenObject.AddKitchenObjectSO(GetKitchenObjectSO());
+                    if (isSuccessed)
+                    DestroyKitchenObject();
+
+                }
             }
             else
             {
-                //柜台上有食材
+                if (IsHaveKitchenObject() == false)
+                {
+                    //柜台上无食材
+                    TransferKitchenObject(player, this);
+                }
+                else
+                {
+                    //柜台上有食材
+                    if(GetKitchenObject().TryGetComponent<PlateKitchenObject>(out plateKitchenObject))
+                    {
+                        if(plateKitchenObject.AddKitchenObjectSO(player.GetKitchenObjectSO()))
+                        {
+                            player.DestroyKitchenObject();
+                        }
+                    }
+                }
             }
         }
         else
