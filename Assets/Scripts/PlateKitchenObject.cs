@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlateKitchenObject : KitchenObject
 {
     [SerializeField] private List<KitchenObjectSO> validKitchenObjectSOList = new List<KitchenObjectSO>();
+    [SerializeField] private PlateCompleteVisual plateCompleteVisual;
+    [SerializeField] private KitchenObjectGridUI kitchenObjectGridUI;
     private List<KitchenObjectSO> kitchenObjectSOList = new List<KitchenObjectSO>();
     public bool AddKitchenObjectSO(KitchenObjectSO kitchenObjectSO)
     {
@@ -12,7 +14,13 @@ public class PlateKitchenObject : KitchenObject
             return false;
         if (validKitchenObjectSOList.Contains(kitchenObjectSO) == false)
             return false;
+        plateCompleteVisual.ShowKitchenObject(kitchenObjectSO);
+        kitchenObjectGridUI.ShowKitchenObjectUI(kitchenObjectSO);
         kitchenObjectSOList.Add(kitchenObjectSO);
         return true;
+    }
+    public List<KitchenObjectSO> GetKitchenObjectSOList()
+    {
+        return kitchenObjectSOList;
     }
 }
