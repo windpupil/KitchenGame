@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class KitchenObjectHolder : MonoBehaviour
 {
+    public static event EventHandler OnDrop;
+    public static event EventHandler OnPickup;
+
     [SerializeField] private Transform holdPoint;
     private KitchenObject kitchenObject;
     public KitchenObject GetKitchenObject()
@@ -20,6 +24,14 @@ public class KitchenObjectHolder : MonoBehaviour
     }
     public void SetKitchenObject(KitchenObject kitchenObject)
     {
+        if (this is BaseCounter && this.kitchenObject != kitchenObject && kitchenObject != null)
+        {
+            OnDrop?.Invoke(this, EventArgs.Empty);
+        }
+        else if (this is Player && this.kitchenObject == kitchenObject && kitchenObject != null)
+        {
+            OnPickup?.Invoke(this, EventArgs.Empty);
+        }
         this.kitchenObject = kitchenObject;
         kitchenObject.transform.localPosition = Vector3.zero;
     }
@@ -53,8 +65,7 @@ public class KitchenObjectHolder : MonoBehaviour
     public void AddKitchenObject(KitchenObject kitchenObject)
     {
         kitchenObject.transform.SetParent(holdPoint);
-        kitchenObject.transform.localPosition = Vector3.zero;
-        this.kitchenObject = kitchenObject;
+        SetKitchenObject(kitchenObject);
     }
     public void DestroyKitchenObject()
     {
