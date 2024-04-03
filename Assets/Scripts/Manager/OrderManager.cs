@@ -19,6 +19,7 @@ public class OrderManager : MonoBehaviour
     private float orderTimer = 0;
     private bool isStartOrder = false;
     private int orderCount = 0;
+    private int successDeliveryCount = 0;
     private void Awake()
     {
         Instance = this;
@@ -75,6 +76,7 @@ public class OrderManager : MonoBehaviour
             orderRecipeSOList.Remove(correctRecipe);
             // orderCount--;
             OnRecipeSuccessed?.Invoke(this, EventArgs.Empty);
+            successDeliveryCount++;
             Debug.Log("上菜成功");
         }
         else
@@ -107,5 +109,9 @@ public class OrderManager : MonoBehaviour
     public void StartSpawnOrder()
     {
         isStartOrder = true;
+    }
+    public int GetSuccessDeliveryCount()
+    {
+        return successDeliveryCount;
     }
 }

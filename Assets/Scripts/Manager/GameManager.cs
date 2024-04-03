@@ -19,7 +19,9 @@ public class GameManager : MonoBehaviour
     private State state;
     private float waitingToStartTimer = 1;
     private float countDownToStartTimer = 3;
-    private float gamePlayingTimer = 10;
+    private float gamePlayingTimer = 30;
+
+    private bool isGamePause = false;
 
     private void Awake()
     {
@@ -28,6 +30,11 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         TurntoWaitingToStart();
+        GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
+    }
+    private void GameInput_OnPauseAction(object sender, EventArgs e)
+    {
+        ToggleGame();
     }
 
     // Update is called once per frame
@@ -83,6 +90,7 @@ public class GameManager : MonoBehaviour
     private void TurntoGameOver()
     {
         state = State.GameOver;
+        DisablePlayer();
         OnStateChanged?.Invoke(this, EventArgs.Empty);
     }
     private void DisablePlayer()
@@ -101,8 +109,24 @@ public class GameManager : MonoBehaviour
     {
         return state == State.GamePlaying;
     }
+    public bool IsGameOverState()
+    {
+        return state == State.GameOver;
+    }
     public float GetCountDownTimer()
     {
         return countDownToStartTimer;
+    }
+    private void ToggleGame()
+    {
+        isGamePause = !isGamePause;
+        if (isGamePause)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
     }
 }
