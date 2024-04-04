@@ -5,11 +5,15 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
+    [SerializeField] private AudioClipRefsSO audioClipRefsSO;
+    private const string SOUNDMANAGER_VOLUME = "SoundManagerVolume";
+
+    private int volume = 5;
     private void Awake()
     {
         Instance = this;
+        LoadVolume();
     }
-    [SerializeField] private AudioClipRefsSO audioClipRefsSO;
     private void Start()
     {
         OrderManager.Instance.OnRecipeSuccessed += OrderManager_OnRecipeSuccessed;
@@ -43,17 +47,42 @@ public class SoundManager : MonoBehaviour
     {
         PlaySound(audioClipRefsSO.deliverySuccess);
     }
-    public void PlayStepSound(float volume = 1f)
+    public void PlayStepSound(float volumeMutipler = 1f)
     {
-        PlaySound(audioClipRefsSO.footstep, volume);
+        PlaySound(audioClipRefsSO.footstep, volumeMutipler);
     }
-    private void PlaySound(AudioClip[] clips, float volume = 1f)
+    private void PlaySound(AudioClip[] clips, float volumeMutipler = 1f)
     {
-        PlaySound(clips, Camera.main.transform.position);
+        PlaySound(clips, Camera.main.transform.position, volumeMutipler);
     }
-    private void PlaySound(AudioClip[] clips, Vector3 position, float volume = 1f)
+    private void PlaySound(AudioClip[] clips, Vector3 position, float volumeMutipler = 1f)
     {
+        if(volume==0)
+        {
+            return;
+        }
         int index = Random.Range(0, clips.Length);
-        AudioSource.PlayClipAtPoint(clips[index], position, volume);
+        AudioSource.PlayClipAtPoint(clips[index], position, volumeMutipler*(volume/10.0f));
+    }
+    public void ChangeVolume()
+    {
+        volume++;
+        if (volume > 10)
+        {
+            volume = 0;
+        }
+        SaveVolume();
+    }
+    public int GetVolume()
+    {
+        return volume;
+    }
+    private void SaveVolume()
+    {
+        PlayerPrefs.SetInt("SOUNDMANAGER_VOLUME", volume);
+    }
+    private void LoadVolume()
+    {
+        volume = PlayerPrefs.GetInt("SOUNDMANAGER_VOLUME",volume );
     }
 }

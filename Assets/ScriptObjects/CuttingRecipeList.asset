@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: caa6bf3f8dab42a4f9719ae543765c69, type: 3}
   m_Name: CuttingRecipeList
   m_EditorClassIdentifier: Assembly-CSharp::CuttingRecipeListSO
   list:
-  - input: {fileID: 11400000, guid: d304f5b6ad313df4bb91f05fbbd83859, type: 2}
-    output: {fileID: 11400000, guid: 09fec162cd60c17409013db4902fd375, type: 2}
-    cuttingCountMax: 3
   - input: {fileID: 11400000, guid: 9cdc530a9d90620408381d0f19d5b36b, type: 2}
     output: {fileID: 11400000, guid: 57f3d512b681e74408260c669f691b9d, type: 2}
+    cuttingCountMax: 3
+  - input: {fileID: 11400000, guid: d304f5b6ad313df4bb91f05fbbd83859, type: 2}
+    output: {fileID: 11400000, guid: 09fec162cd60c17409013db4902fd375, type: 2}
     cuttingCountMax: 4
   - input: {fileID: 11400000, guid: c17559cec0b7b9042bf192ab1e5feda5, type: 2}
     output: {fileID: 11400000, guid: 2cac6fc0c11042d4d8542a6d6b111c49, type: 2}

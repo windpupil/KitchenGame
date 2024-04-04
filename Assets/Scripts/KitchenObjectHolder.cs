@@ -77,4 +77,9 @@ public class KitchenObjectHolder : MonoBehaviour
         KitchenObject kitchenObject = GameObject.Instantiate(kitchenObjectPrefab, GetHoldPoint()).GetComponent<KitchenObject>();
         SetKitchenObject(kitchenObject);
     }
+    public static void ClearStaticData()
+    {
+        OnDrop = null;
+        OnPickup = null;
+    }
 }
