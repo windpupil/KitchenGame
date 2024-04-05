@@ -52,6 +52,6 @@ public class MusicManager : MonoBehaviour
     }
     private void LoadVolume()
     {
-        volume = PlayerPrefs.GetInt("MusicManagerVolume", volume);
+        volume = PlayerPrefs.GetInt("MUSICMANAGER_VOLUME", volume);
     }
 }

@@ -14,6 +14,24 @@ public class SettingsUI : MonoBehaviour
     [SerializeField] private Button musicButton;
     [SerializeField] private TextMeshProUGUI musicButtonText;
     [SerializeField] private Button closeButton;
+
+    [SerializeField] private Button upKeyButton;
+    [SerializeField] private Button downKeyButton;
+    [SerializeField] private Button leftKeyButton;
+    [SerializeField] private Button rightKeyButton;
+    [SerializeField] private Button interactKeyButton;
+    [SerializeField] private Button operateKeyButton;
+    [SerializeField] private Button pauseKeyButton;
+
+    [SerializeField] private TextMeshProUGUI upKeyButtonText;
+    [SerializeField] private TextMeshProUGUI downKeyButtonText;
+    [SerializeField] private TextMeshProUGUI leftKeyButtonText;
+    [SerializeField] private TextMeshProUGUI rightKeyButtonText;
+    [SerializeField] private TextMeshProUGUI interactKeyButtonText;
+    [SerializeField] private TextMeshProUGUI operateKeyButtonText;
+    [SerializeField] private TextMeshProUGUI pauseKeyButtonText;
+
+    [SerializeField] private GameObject rebindingHint;
     void Awake()
     {
         Instance = this;
@@ -36,6 +54,35 @@ public class SettingsUI : MonoBehaviour
         {
             Hide();
         });
+
+        upKeyButton.onClick.AddListener(() =>
+        {
+            ReBinding(GameInput.BindingType.Up);
+        });
+        downKeyButton.onClick.AddListener(() =>
+        {
+            ReBinding(GameInput.BindingType.Down);
+        });
+        leftKeyButton.onClick.AddListener(() =>
+        {
+            ReBinding(GameInput.BindingType.Left);
+        });
+        rightKeyButton.onClick.AddListener(() =>
+        {
+            ReBinding(GameInput.BindingType.Right);
+        });
+        interactKeyButton.onClick.AddListener(() =>
+        {
+            ReBinding(GameInput.BindingType.Interact);
+        });
+        operateKeyButton.onClick.AddListener(() =>
+        {
+            ReBinding(GameInput.BindingType.Operate);
+        });
+        pauseKeyButton.onClick.AddListener(() =>
+        {
+            ReBinding(GameInput.BindingType.Pause);
+        });
     }
     public void Show()
     {
@@ -47,7 +94,24 @@ public class SettingsUI : MonoBehaviour
     }
     private void UpdateVisual()
     {
-        soundButtonText.text = "音效大小："+SoundManager.Instance.GetVolume();
-        musicButtonText.text = "音乐大小："+MusicManager.Instance.GetVolume();
+        soundButtonText.text = "音效大小：" + SoundManager.Instance.GetVolume();
+        musicButtonText.text = "音乐大小：" + MusicManager.Instance.GetVolume();
+
+        upKeyButtonText.text = GameInput.Instance.GetBindingDisplayString(GameInput.BindingType.Up);
+        downKeyButtonText.text = GameInput.Instance.GetBindingDisplayString(GameInput.BindingType.Down);
+        leftKeyButtonText.text = GameInput.Instance.GetBindingDisplayString(GameInput.BindingType.Left);
+        rightKeyButtonText.text = GameInput.Instance.GetBindingDisplayString(GameInput.BindingType.Right);
+        interactKeyButtonText.text = GameInput.Instance.GetBindingDisplayString(GameInput.BindingType.Interact);
+        operateKeyButtonText.text = GameInput.Instance.GetBindingDisplayString(GameInput.BindingType.Operate);
+        pauseKeyButtonText.text = GameInput.Instance.GetBindingDisplayString(GameInput.BindingType.Pause);
+    }
+    private void ReBinding(GameInput.BindingType bindingType)
+    {
+        rebindingHint.SetActive(true);
+        GameInput.Instance.ReBinding(bindingType, () =>
+        {
+            rebindingHint.SetActive(false);
+            UpdateVisual();
+        });
     }
 }
