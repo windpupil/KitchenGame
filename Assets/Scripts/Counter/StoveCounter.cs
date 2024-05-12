@@ -9,6 +9,11 @@ public class StoveCounter : BaseCounter
     [SerializeField] private StoveCounterVisual stoveCounterVisual;
     [SerializeField] private ProgressBarUI progressBarUI;
     [SerializeField] private AudioSource sound;
+    private WarningControl warningControl;
+    private void Start()
+    {
+        warningControl = GetComponent<WarningControl>();
+    }
     public enum StoveState
     {
         Idle,
@@ -84,6 +89,11 @@ public class StoveCounter : BaseCounter
             case StoveState.Buring:
                 fryingTimer += Time.deltaTime;
                 progressBarUI.UpdateProgress(fryingTimer / fryingRecipe.fryingTime);
+                float warningTimeNormalize = .5f;
+                if (fryingTimer / fryingRecipe.fryingTime > warningTimeNormalize)
+                {
+                    warningControl.ShowWarning();
+                }
                 if (fryingTimer >= fryingRecipe.fryingTime)
                 {
                     DestroyKitchenObject();
@@ -123,5 +133,6 @@ public class StoveCounter : BaseCounter
         stoveCounterVisual.HideStoveEffect();
         progressBarUI.Hide();
         sound.Stop();
+        warningControl.StopWarning();
     }
 }

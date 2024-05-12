@@ -8,10 +8,15 @@ public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private GameObject uiParent;
     [SerializeField] private TextMeshProUGUI numberText;
+    [SerializeField] private Button menuButton;
     void Start()
     {
         Hide();
         GameManager.Instance.OnStateChanged+=GameManager_OnStateChanged;
+        menuButton.onClick.AddListener(() =>
+        {
+            Loader.Load(Loader.Scene.GameMenuScene);
+        });
     }
     private void GameManager_OnStateChanged(object sender, System.EventArgs e)
     {

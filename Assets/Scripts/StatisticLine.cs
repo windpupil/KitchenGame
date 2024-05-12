@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using UnityEngine;
 using UnityEditor;
-
+#if UNITY_EDITOR
 public class StatisticLine
 {
     [MenuItem("输出总代码行数/输出")]
@@ -29,3 +29,4 @@ public class StatisticLine
         Debug.Log(String.Format("总代码行数：{0}", totalLine));
     }
 }
+#endif

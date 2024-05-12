@@ -47,6 +47,14 @@ public class SoundManager : MonoBehaviour
     {
         PlaySound(audioClipRefsSO.deliverySuccess);
     }
+    public void PlayCountDownSound()
+    {
+        PlaySound(audioClipRefsSO.warning);
+    }
+    public void PlayWarningSound()
+    {
+        PlaySound(audioClipRefsSO.warning);
+    }
     public void PlayStepSound(float volumeMutipler = 1f)
     {
         PlaySound(audioClipRefsSO.footstep, volumeMutipler);

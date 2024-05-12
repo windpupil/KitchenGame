@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player player;
 
     private State state;
-    private float waitingToStartTimer = 1;
+    private float waitingToStartTimer = 5;
     private float countDownToStartTimer = 3;
     private float gamePlayingTimer = 30;
     private float gamePlayingTimeTotal;
@@ -104,6 +104,10 @@ public class GameManager : MonoBehaviour
     private void EnablePlayer()
     {
         player.enabled = true;
+    }
+    public bool IsWaitingToStartState()
+    {
+        return state == State.WaitingToStart;
     }
     public bool IsCountDownState()
     {
